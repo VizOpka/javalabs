@@ -1,0 +1,7 @@
+Сценарий                    Интерфейс       Реализация       Сложность 
+Каталог по ID               Map             HashMap          get/put O(1) 
+Leaderboard                 Map             TreeMap          get/put O(log n) 
+Очередь                     Queue           ArrayDeque       add/poll O(1) 
+Уникальные теги с порядком  Set             LinkedHashSet    add O(1)
+Диапазонный поиск           NavigableMap    TreeMap          subMap O(log n) 
+Частый доступ по индексу    List            ArrayList        get O(1) 
