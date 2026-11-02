@@ -1,0 +1,17 @@
+Поймали: Сбой в середине pipeline (строка 3)
+Журнал событий:
+  open reader
+  open writer
+  обработана строка 1
+  обработана строка 2
+  ИСКЛЮЧЕНИЕ на строке 3
+  close writer
+  close reader
+  [проверка ок] close вызван у обоих, порядок: writer, затем reader
+  reader закрыт: Stream closed
+  writer закрыт: Stream closed
+Файл out.txt после сбоя:
+СТРОКА 1
+СТРОКА 2
+
+  [проверка ок] две успевшие строки сохранены

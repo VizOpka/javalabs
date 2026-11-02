@@ -1,0 +1,8 @@
+1) Ошибочный возврат stream наружу
+  [ожидаемая ошибка] работа с уже закрытым stream -> IllegalStateException: stream has already been operated upon or closed
+2) Правильно: ресурс внутри метода
+  непустых строк: 3
+  первые 2: [первая, ]
+  [проверка ок] непустых строк 3
+3) Ошибка чтения прямо во время потока
+  [ожидаемая ошибка] файл с битым UTF-8 -> MalformedInputException: Input length = 1
