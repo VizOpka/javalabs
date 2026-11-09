@@ -1,0 +1,31 @@
+== CANONICAL (level↑, duration↑, code↑, title↑) ==
+  BEGINNER  E000  Empty Placeholder          60 min
+  BEGINNER  G100  Git Essentials            240 min
+  BEGINNER  J101  Java Basics               600 min
+  BEGINNER  J101  Java Basics (legacy)      600 min
+  BEGINNER  P101  Python Basics             600 min
+  INTERMEDIATE J201  Java Streams              480 min
+  INTERMEDIATE S201  SQL Fundamentals          480 min
+  INTERMEDIATE W201  Web Development           900 min
+  ADVANCED  J301  JVM Internals             900 min
+  ADVANCED  K301  Kafka In Depth            900 min
+  ADVANCED  D301  Distributed Systems      1200 min
+== LONGEST_FIRST (level↑, duration↓, code↑, title↑) ==
+  BEGINNER  J101  Java Basics               600 min
+  BEGINNER  J101  Java Basics (legacy)      600 min
+  BEGINNER  P101  Python Basics             600 min
+  BEGINNER  G100  Git Essentials            240 min
+  BEGINNER  E000  Empty Placeholder          60 min
+  INTERMEDIATE W201  Web Development           900 min
+  INTERMEDIATE J201  Java Streams              480 min
+  INTERMEDIATE S201  SQL Fundamentals          480 min
+  ADVANCED  D301  Distributed Systems      1200 min
+  ADVANCED  J301  JVM Internals             900 min
+  ADVANCED  K301  Kafka In Depth            900 min
+
+CANONICAL: 1000/1000 перестановок дали ИДЕНТИЧНЫЙ результат
+WEAK (без tie-breakers): 24 РАЗНЫХ результатов из 1000 перестановок
+Два разных результата WEAK (BEGINNER, 600 min — ничья по ключам):
+  J101/Java Basics (legacy) | P101/Python Basics | J101/Java Basics
+  J101/Java Basics | J101/Java Basics (legacy) | P101/Python Basics
+OK: детерминизм подтверждён.

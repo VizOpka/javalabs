@@ -1,0 +1,49 @@
+Heap max: 61 MB (запуск с -Xmx64m)
+
+== 1. Один проход по большому потоку (Stream + Collector) ==
+  событий всего=2876445, валидных=2875838, уникальных студентов=100000
+  completion rate по курсам (completed / enrolled):
+    D301   11869 / 19979  =  59.4%
+    E000   11817 / 19784  =  59.7%
+    G100   11915 / 19974  =  59.7%
+    J101   11903 / 19992  =  59.5%
+    J201   11929 / 19993  =  59.7%
+    J301   11929 / 19914  =  59.9%
+    K301   11897 / 19924  =  59.7%
+    P101   11747 / 19793  =  59.3%
+    S201   11807 / 19989  =  59.1%
+    W201   11853 / 19860  =  59.7%
+  TOP-3:
+    #1 J301   59.9% (enrolled=19914)
+    #2 E000   59.7% (enrolled=19784)
+    #3 K301   59.7% (enrolled=19924)
+  записей по уровням: {BEGINNER=79543, INTERMEDIATE=59842, ADVANCED=59817}
+  аномалии (кол-во): {UNKNOWN_COURSE=385, BLANK_STUDENT=222, COMPLETED_WITHOUT_ENROLLMENT=608, COMPLETED_AND_DROPPED=598, DUPLICATE_ENROLLMENT=1991}
+  аномалии (первые 3 на тип, отсортированы):
+    UNKNOWN_COURSE  event#000000004450
+    UNKNOWN_COURSE  event#000000004797
+    UNKNOWN_COURSE  event#000000007402
+    BLANK_STUDENT  event#000000006007
+    BLANK_STUDENT  event#000000012965
+    BLANK_STUDENT  event#000000023955
+    COMPLETED_WITHOUT_ENROLLMENT  D301/S001220
+    COMPLETED_WITHOUT_ENROLLMENT  D301/S001309
+    COMPLETED_WITHOUT_ENROLLMENT  D301/S003820
+    COMPLETED_AND_DROPPED  D301/S000481
+    COMPLETED_AND_DROPPED  D301/S001291
+    COMPLETED_AND_DROPPED  D301/S002848
+    DUPLICATE_ENROLLMENT  D301/S000314
+    DUPLICATE_ENROLLMENT  D301/S000390
+    DUPLICATE_ENROLLMENT  D301/S001401
+  сгенерировано=2876445, обработано=2876445 → каждое событие прочитано ровно один раз
+  в памяти держалось ~199202 состояний пар и 100000 студентов вместо 2876445 событий
+  повторный проход невозможен: IllegalStateException: stream has already been operated upon or closed
+
+== 2. Детерминизм ==
+  тот же вход, второй запуск (stream):  отчёты равны = true
+  тот же вход, обычный цикл:            отчёты равны = true
+  86472 событий, 20 перемешиваний + parallelStream: 20/20 отчётов идентичны (порядок и разбиение не влияют)
+
+== 3. Что было бы при материализации потока ==
+  toList() → OutOfMemoryError при -Xmx64m: O(событий) не подходит, O(пар) — подходит
+OK

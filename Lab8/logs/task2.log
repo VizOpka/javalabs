@@ -1,0 +1,34 @@
+Сырых тем (с повторами/мусором): 38, уникальных нормализованных: 25
+Темы: [classes, collaboration, command line, css, garbage collection, git, html, http, java, jit, joins, jvm, kafka, kafka streams, lambdas, merge, normalization, paxos, python, raft, replication, rest, sql, streams api, variables]
+
+Обратный индекс topic → courses:
+  'classes'            -> [J101]
+  'collaboration'      -> [G100]
+  'command line'       -> [P101]
+  'css'                -> [W201]
+  'garbage collection' -> [J301]
+  'git'                -> [G100]
+  'html'               -> [W201]
+  'http'               -> [W201]
+  'java'               -> [J101, J201]
+  'jit'                -> [J301]
+  'joins'              -> [S201]
+  'jvm'                -> [J301]
+  'kafka'              -> [D301, K301]
+  'kafka streams'      -> [K301]
+  'lambdas'            -> [J201]
+  'merge'              -> [G100]
+  'normalization'      -> [S201]
+  'paxos'              -> [D301]
+  'python'             -> [P101]
+  'raft'               -> [D301]
+  'replication'        -> [K301]
+  'rest'               -> [W201]
+  'sql'                -> [S201]
+  'streams api'        -> [D301, J201, K301]
+  'variables'          -> [J101, P101]
+
+Курсы без тем в индексе отсутствуют: [E000]
+Курсы по теме 'java': [J101, J201]
+Результат неизменяем: UnsupportedOperationException
+OK

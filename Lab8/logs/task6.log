@@ -1,0 +1,25 @@
+== 1. Результат и сравнение с summarizingLong ==
+  custom : Stats[count=10, sum=6360, min=60, max=1200], avg=636.0
+  builtin: LongSummaryStatistics{count=10, sum=6360, min=60, average=636.000000, max=1200}
+  значения совпадают: true
+
+== 2. Корректность combiner для ЛЮБОГО разбиения ==
+  двухчастные разбиения: 11 из 11 совпали
+  трёхчастные разбиения: 66 из 66 совпали
+  200 перемешиваний + parallelStream: результат всегда одинаков
+
+== 3. Пустой поток ==
+  custom : Stats[count=0, sum=0, min=-, max=-], average=OptionalDouble.empty
+  builtin: LongSummaryStatistics{count=0, sum=0, min=9223372036854775807, average=0.000000, max=-9223372036854775808}  ← min/max = sentinel-ы Long.MAX/MIN_VALUE, average=0.0
+
+== 4. Переполнение ==
+  builtin sum: -9223372036854775808  ← тихо обернулось в отрицательное
+  custom: ArithmeticException: long overflow
+
+== 5. Композиция с groupingBy и свойства collector-а ==
+  BEGINNER     Stats[count=4, sum=1500, min=60, max=600]
+  INTERMEDIATE Stats[count=3, sum=1860, min=480, max=900]
+  ADVANCED     Stats[count=3, sum=3000, min=900, max=1200]
+  characteristics: [UNORDERED] (IDENTITY_FINISH нет: finisher создаёт неизменяемый record)
+  статических изменяемых полей в классе нет; Acc создаётся supplier-ом на каждый кусок
+OK

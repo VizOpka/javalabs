@@ -1,0 +1,36 @@
+== 1. Сумма длительностей: правильная identity ==
+reduce(ZERO, plus)          = PT106H (6360 min)
+reduce(ZERO, acc, combiner) = PT106H
+mapToLong(..).sum()         = 6360 min
+
+== 2. Value objects: Workload.merge ==
+Workload[total=PT106H, courses=10, modules=18]
+
+== 3. НЕПРАВИЛЬНАЯ identity нарушает результат ==
+Верный итог: 6360 min. Identity = 30 min (не нейтральна: 30 + x != x)
+  1 кусков(а):  6390 min  (ошибка +30 min = 30 * 1)
+  2 кусков(а):  6420 min  (ошибка +60 min = 30 * 2)
+  5 кусков(а):  6510 min  (ошибка +150 min = 30 * 5)
+1000x данных: верно=6360000 min | seq с bad identity=6360030 | parallel с bad identity=6360120
+  (sequential «случайно» ошибся ровно на 30; parallel — на 30 * число_листьев, зависит от машины)
+  Workload с bad identity, 1 кусков: courses=11 (верно 10)
+  Workload с bad identity, 2 кусков: courses=12 (верно 10)
+  Workload с bad identity, 5 кусков: courses=15 (верно 10)
+
+  Неверная identity для min/max:
+  min, identity 0:           0 (верно 3)
+  min, identity MAX_VALUE:   3
+  max, identity 0 на {-5,-3,-9}:        0 (верно -3)
+  max, identity MIN_VALUE на {-5,-3,-9}: -3
+
+== 4. Ассоциативность accumulator ==
+Требования к reduce(identity, op):
+  assoc:    op(op(a,b),c) == op(a,op(b,c))
+  identity: op(identity,a) == a == op(a,identity)
+  3-арг:    combiner(u, accumulator(identity,t)) == accumulator(u,t); оба — без состояния
+Вычитание (НЕ ассоциативно): sequential = -55
+  2 кусков: 25
+  5 кусков: 49
+Workload.merge: ассоциативность проверена на 1000 тройках, identity — на 10 элементах
+Для всех разбиений на 1..10 кусков результат совпал с sequential: PT106H
+OK

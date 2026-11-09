@@ -1,0 +1,28 @@
+== 1. Самый длинный курс → преобразование → fallback ==
+  Distributed Systems (D301), 20 ч
+  Пустой каталог: курсов нет
+  Ничья 900 мин (W201/J301/K301) → побеждает меньший code: J301
+
+== 2. filter + ifPresentOrElse ==
+  самый длинный курс — не начального уровня
+
+== 3. flatMap по цепочке Optional-ов ==
+  J101  → ANNA
+  P101  → не назначен
+  NOPE  → не назначен
+
+== 4. orElse (eager) vs orElseGet (lazy) ==
+  при НАЛИЧИИ значения: orElse вызвал fallback 1 раз, orElseGet — 0 раз
+
+== 5. orElseThrow, когда отсутствие — нарушение инварианта ==
+  поймано: каталог не должен быть пустым
+
+== 6. Примитивные Optional ==
+  max minutes = 1200
+
+== 7. Optional не хранится в полях ==
+  Course         Optional-полей: нет
+  CourseModule   Optional-полей: нет
+  CourseProfile  Optional-полей: нет
+  Optional.get()/isPresent()+get() в коде задания не используются.
+OK

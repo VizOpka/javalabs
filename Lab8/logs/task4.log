@@ -1,0 +1,20 @@
+== Один проход: groupingBy + summarizingLong + collectingAndThen ==
+  BEGINNER     count=4 avg=375.0 min=60 max=600
+  INTERMEDIATE count=3 avg=620.0 min=480 max=900
+  ADVANCED     count=3 avg=1000.0 min=900 max=1200
+  ИТОГО: courses=10, minutes=6360, avg=636.0
+  Элементов обработано: 10 (в каталоге 10) → 1 проход
+
+== Для сравнения: три полных прохода ==
+  Элементов обработано: 30 = 3 * 10 → 3 прохода; результат тот же: true
+  Для List это лишь 3x работы, для одноразового источника (Kafka, файл, сокет) — невозможно.
+
+== Альтернатива: teeing(counting, averaging) на каждую группу ==
+  BEGINNER     CountAvg[count=4, avg=375.0]
+  INTERMEDIATE CountAvg[count=3, avg=620.0]
+  ADVANCED     CountAvg[count=3, avg=1000.0]
+  Элементов обработано: 10 → teeing подаёт элемент в оба downstream за ОДИН проход
+
+== Поток одноразовый ==
+  Повторный терминал: IllegalStateException: stream has already been operated upon or closed
+OK
